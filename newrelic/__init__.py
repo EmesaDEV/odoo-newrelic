@@ -39,8 +39,7 @@ def initialization():
         target.app = nr_app
 
         # Workers new WSGI Application
-        target = odoo.http.Application
-        target.__call__ = newrelic.agent.WSGIApplicationWrapper(target.__call__)
+        odoo.http.Application = newrelic.agent.WSGIApplicationWrapper(odoo.http.Application)
 
         try:
             _logger.info('attaching to bus controller')
